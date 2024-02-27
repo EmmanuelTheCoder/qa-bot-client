@@ -1,0 +1,67 @@
+
+
+body {
+  
+}
+.header h1{
+  text-align: center;
+  padding-top: 1rem;
+
+}
+.header p {
+  text-align: center;
+  font-style: italic;
+  padding-bottom: 3rem;
+}
+
+.chat-area{
+  display: flex;
+  border: 2px solid black;
+  border-radius: 30px 20px 12px;
+  height: 80vh;
+  overflow-y: scroll;
+  width: 80%;
+  margin: auto;
+  position: relative;
+  margin-bottom: 5rem;
+
+ 
+} 
+.chat-area-content{
+  padding: 1rem;
+  
+  
+}
+.chat-area-content p{
+  padding-bottom: 1.4rem;
+  
+}
+
+.type-area {
+  position: fixed;
+  bottom: 1rem;
+  
+
+
+  
+}
+
+.type-area input {
+  border: 3px solid black;
+  border-radius: 30px;
+  width: 20rem;
+  outline: none;
+  height: 2.5rem;
+  
+}
+
+.type-area button {
+  margin-left: .8rem;
+  outline: auto;
+  background-color: green;
+  border-radius: 12px;
+  width: 4rem;
+  height: 2rem;
+  color: white;
+}
+
