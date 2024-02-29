@@ -77,11 +77,12 @@ body {
   max-width: 400px; /* Set maximum width (adjust as needed) */
 
   border-radius: 4px 12px;
-  
+  letter-spacing: 0.5px;
+  font-family: "Open Sans", sans-serif;
+  text-align: left;
 }
 .user {
   background-color: rgb(217, 211, 211);
-  text-align: justify;
 }
 
 .bot {
