@@ -56,7 +56,7 @@ export default function Home() {
 
           axios({
             method: "POST",
-            url: "https://stackblitz.com/~/github.com/EmmanuelTheCoder/qa-bot-server/response",
+            url: "https://threemttbotserver.onrender.com/response",
             headers: {
               "Content-Type": "application/json"
             },
@@ -93,7 +93,7 @@ export default function Home() {
     <div className="container">
       <div className="header">
         <h1>3MTT Chatbot</h1>
-        <p>Ask anything about 3MTT and get response in seconds</p>
+        <p>Ask anything about 3MTT and get a response in seconds</p>
       </div>
 
         <div className="chat-area">
