@@ -3,70 +3,92 @@ import React, {useState} from 'react'
 import axios from 'axios'
 
 
+
 const sendChatToServer = async (chat) => {
+  
+  try{
 
-  let response;
-  axios({
-    method: "POST",
-    url: "http://localhost:8000/response",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    data: {
-      "content": chat
-    }
-  }).then(async (val) => {
-    response = await val.data
+    axios({
+      method: "POST",
+      url: "https://stackblitz.com/~/github.com/EmmanuelTheCoder/qa-bot-server/response",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: {
+        "content": chat
+      }
+    })
+    .then(async (val) => {
+      // console.log("return from upper func", val.data)
+    })
 
-    return response
-  })
-  console.log("response", response)
-  return response
+  }catch (error){
+    alert("an error occured while fetching", error)
+  }
 }
 
+const system = {
+  user: "3MTT bot",
+  content: "Hi there! I am here to answer all your questions relating to 3MTT"
+}
+
+
 export default function Home() {
-  const [chatContent, setChatContent] = useState([])
+  const [chatContent, setChatContent] = useState([system])
   const [input, setInput] = useState("")
-  
+  const [isThinking, setIsThinking] = useState(false)
+
   const handleSubmit = async (e) => {
     
     e.preventDefault()
     
-    const chat = {
-      user: "user",  
-      content: input
-    }
-    
-    setChatContent([...chatContent, {
-      user: "user",
-      content: input
-    }])
+    setIsThinking(true)
 
-      if(input.trim() === ""){
-        alert("Chat cannot be empty")
-      }else{
-        const botResponse = await sendChatToServer(input)
-        const response = {
-          user: "bot",
-          content: botResponse
+    
+    if(input.trim() === ""){
+      alert("Chat cannot be empty")
+      setIsThinking(false)
+      
+    }else{
+        setChatContent((prevState) => [...prevState, {user: "user", content: input}])
+
+        try{
+
+          axios({
+            method: "POST",
+            url: "https://stackblitz.com/~/github.com/EmmanuelTheCoder/qa-bot-server/response",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            data: {
+              "content": input
+            },
+          })
+          .then(async (val) => {
+          
+             setInput("")
+
+            setChatContent((prevState) => [...prevState, {
+              user: "3MTT bot", content: val.data
+            
+            }])
+
+             setInput("")
+             setIsThinking(false)
+          })
+      
+        }catch (error){
+          alert("an error occured while fetching", error)
         }
-        setChatContent([...chatContent, response])
-        console.log(botResponse)
+          
+
         
-        setInput("")
       }
    
 
-    //console.log(input)
-
-    // setChatContent([...chatContent, bot])
-
-
-    // sendChatToServer(input)
-
+  
 
   }
-  console.log(chatContent)
   return (
     <div className="container">
       <div className="header">
@@ -77,35 +99,22 @@ export default function Home() {
         <div className="chat-area">
           <div className="chat-area-content">
 
-            <p>some random text...</p>
-            <p>more random text</p>
-            <p>some more random text</p>
-
-            
-            {chatContent && chatContent.filter(val => val.user === "user").map((chat, index) => {
+           
+            {chatContent.map((chat, index) =>{
                 return(
-                  <div key={index}>
-                    <p>{chat.content}</p>
+                  <div key={index} className={`user-bot-chat ${chat.user}`}>
+                    <p className='user-id'>{chat.user}</p>
+                    <p className='user-content'>{chat.content}</p>
                   </div>
                 )
             })}
 
-            {chatContent.filter(val => val.user === "bot").map((chat, index) => {
-              return (
-                <div key={index}>
-                  <p>{chat.content}</p>
-                </div>
-              )
-            })
+            <p className={isThinking ? "thinking" : "notThinking"}>Generating response...</p>
             
-            }
-            
-
-            
-            <div className="type-area">
-              <input type="text" placeholder="Ask any question about 3MTT" value={input} onChange={(e)=>setInput(e.target.value)}/>
-              <button onClick={handleSubmit}>Send</button>
-            </div>
+          </div>
+          <div className="type-area">
+            <input type="text" placeholder="Ask any question about 3MTT" value={input} onChange={(e)=>setInput(e.target.value)}/>
+            <button onClick={handleSubmit}>Send</button>
           </div>
         </div>
     </div>

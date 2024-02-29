@@ -15,16 +15,13 @@ body {
 }
 
 .chat-area{
-  display: flex;
   border: 2px solid black;
   border-radius: 30px 20px 12px;
   height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 80%;
   margin: auto;
-  position: relative;
   margin-bottom: 5rem;
-
  
 } 
 .chat-area-content{
@@ -33,15 +30,21 @@ body {
   
 }
 .chat-area-content p{
-  padding-bottom: 1.4rem;
+  padding-bottom: .4rem;
+  padding-left: .5rem;
   
 }
 
 .type-area {
-  position: fixed;
-  bottom: 1rem;
-  
-
+  /* position: fixed;
+  bottom: 1rem; */
+  position: sticky;
+  bottom: 0;
+ 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  margin-top: calc(80vh - 15vh)
 
   
 }
@@ -64,4 +67,73 @@ body {
   height: 2rem;
   color: white;
 }
+.user-bot-chat {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 
+  /* Fallback for browsers without fit-content support */
+  min-width: 200px; /* Set minimum width */
+  max-width: 400px; /* Set maximum width (adjust as needed) */
+
+  border-radius: 4px 12px;
+  
+}
+.user {
+  background-color: rgb(217, 211, 211);
+  text-align: justify;
+}
+
+.bot {
+ 
+  background-color: rgb(225, 252, 230);
+  /* white-space: pre-wrap; 
+  word-wrap: break-word;  */
+
+  margin-left: auto;
+
+  text-align: justify;
+}
+.user .user-id {
+  color: red;
+}
+
+.bot .user-id{
+  color: blue;
+}
+
+.bot .user-content{
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
+.user .user-content{
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
+.thinking {
+ text-align: right; 
+ animation: move 1s infinite
+}
+
+@keyframes move {
+  0% {
+    color: green;
+    
+  }
+  30% {
+    color: blue
+  }
+  60%{
+    color: yellow
+  }
+  100% {
+    color: black;
+    
+  }
+}
+
+.notThinking {
+  display: none;
+}
